@@ -61,6 +61,7 @@ const MenuItem = styled.div`
     ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `
 const Navbar = () => {
+    const user = useSelector((state) => state.user.currentUser);
     const quantity = useSelector(state => state.cart.quantity)
     return (
         <Container >
@@ -74,12 +75,16 @@ const Navbar = () => {
                 </Left>
                 <Center><Logo>RJSTORE.</Logo></Center>
                 <Right>
-                    <Link to="/register">
-                        <MenuItem>REGISTER</MenuItem>
-                    </Link>
-                    <Link to="/login">
-                        <MenuItem>SIGN IN</MenuItem>
-                    </Link>
+                    {user ? (
+                        <>{user.username}</>
+                    ) : <>
+                        <Link to="/register">
+                            <MenuItem>REGISTER</MenuItem>
+                        </Link>
+                        <Link to="/login">
+                            <MenuItem>SIGN IN</MenuItem>
+                        </Link>
+                    </>}
                     <Link to="/cart">
                         <MenuItem>
                             <Badge badgeContent={quantity} color="primary" overlap="rectangular">
